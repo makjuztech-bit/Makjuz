@@ -1,0 +1,162 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Brand {
+  id          Int      @id @default(autoincrement())
+  name        String
+  tagline     String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model NavigationItem {
+  id           Int      @id @default(autoincrement())
+  label        String
+  href         String
+  displayOrder Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model HeroSection {
+  id          Int          @id @default(autoincrement())
+  eyebrow     String
+  title       String
+  description String
+  image       String
+  imageAlt    String
+  actions     HeroAction[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model HeroAction {
+  id            Int         @id @default(autoincrement())
+  label         String
+  href          String
+  variant       String
+  heroSection   HeroSection @relation(fields: [heroSectionId], references: [id], onDelete: Cascade)
+  heroSectionId Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model StatItem {
+  id           Int      @id @default(autoincrement())
+  value        Float
+  suffix       String
+  label        String
+  displayOrder Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ProductsIntro {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Product {
+  id           Int            @id @default(autoincrement())
+  title        String
+  description  String
+  displayOrder Int
+  points       ProductPoint[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model ProductPoint {
+  id        Int      @id @default(autoincrement())
+  text      String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WhyChooseSection {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String
+  items       WhyChooseItem[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model WhyChooseItem {
+  id                 Int              @id @default(autoincrement())
+  title              String
+  description        String
+  displayOrder       Int
+  whyChooseSection   WhyChooseSection @relation(fields: [whyChooseSectionId], references: [id], onDelete: Cascade)
+  whyChooseSectionId Int
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+}
+
+model TestimonialsIntro {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id           Int      @id @default(autoincrement())
+  name         String
+  role         String
+  quote        String
+  avatar       String
+  rating       Int      @default(5)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactCtaSection {
+  id          Int                @id @default(autoincrement())
+  title       String
+  description String
+  actions     ContactCtaAction[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+}
+
+model ContactCtaAction {
+  id                  Int               @id @default(autoincrement())
+  label               String
+  href                String
+  variant             String
+  contactCtaSection   ContactCtaSection @relation(fields: [contactCtaSectionId], references: [id], onDelete: Cascade)
+  contactCtaSectionId Int
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model ContactSubmission {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model NewsletterSubscriber {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}

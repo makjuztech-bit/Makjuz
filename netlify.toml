@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build --workspace=frontend"
+  publish = "frontend/dist"
+  base = "."
+
+[build.environment]
+  NODE_VERSION = "22.12.0"

@@ -1,0 +1,20 @@
+node_modules
+dist
+.env
+.vercel
+.netlify
+.next
+coverage
+*.log
+.DS_Store
+
+# Prisma
+/backend/prisma/migrations
+/backend/generated
+
+# Frontend build
+/frontend/dist
+
+# Vercel/Netlify metadata
+.vercel
+.netlify

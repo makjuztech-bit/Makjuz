@@ -1,0 +1,22 @@
+{
+  "name": "makjuz-root",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=frontend",
+    "start-backend": "npm run start --workspace=backend",
+    "install-all": "npm install",
+    "prisma:generate": "npm run prisma:generate --workspace=backend"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "prisma": "^7.7.0"
+  }
+}
