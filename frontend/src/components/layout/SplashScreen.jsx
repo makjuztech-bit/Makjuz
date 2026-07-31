@@ -32,7 +32,7 @@ export default function SplashScreen({ onFinish }) {
         className="flex flex-col items-center justify-center"
       >
         <motion.img
-          src="/makjus.png"
+          src="/MAKJUZ logo transparent.png"
           alt="Makjuz Logo"
           className="h-28 md:h-40 w-auto object-contain drop-shadow-[0_0_15px_rgba(217,70,239,0.5)]"
           animate={{

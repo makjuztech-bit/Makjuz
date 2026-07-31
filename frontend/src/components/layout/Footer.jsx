@@ -6,7 +6,7 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.8fr_0.9fr_0.9fr_0.9fr] lg:px-8">
         <div className="space-y-5">
           <Link to="/" className="inline-block">
-            <img src="/makjus.png" alt="Makjuz Logo" className="h-12 w-auto object-contain" />
+            <img src="/MAKJUZ logo transparent.png" alt="Makjuz Logo" className="h-12 w-auto object-contain" />
           </Link>
           <p className="max-w-xl text-sm leading-7 text-slate-400">
             Building the future, one line of code at a time. We create software that grows with your business.

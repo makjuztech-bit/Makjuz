@@ -35,7 +35,7 @@ function Header() {
         }`}
       >
         <Link to="/" className="flex items-center gap-2">
-          <img src="/makjus.png" alt="Makjuz Logo" className="h-10 w-auto object-contain" />
+          <img src="/MAKJUZ logo transparent.png" alt="Makjuz Logo" className="h-10 w-auto object-contain" />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
