@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import ContactCtaSection from '../components/sections/ContactCtaSection.jsx'
+import ClientsSection from '../components/sections/ClientsSection.jsx'
 import HeroSection from '../components/sections/HeroSection.jsx'
 import ProductsSection from '../components/sections/ProductsSection.jsx'
 import StatsSection from '../components/sections/StatsSection.jsx'
@@ -32,6 +33,7 @@ function HomePage() {
       )}
       <HeroSection hero={sections.hero} stats={sections.stats} />
       <StatsSection stats={sections.stats} />
+      <ClientsSection />
       <ProductsSection intro={sections.productsIntro} products={sections.products} />
       <WhyChooseSection section={sections.whyChoose} />
       <TestimonialsSection intro={sections.testimonialsIntro} testimonials={testimonials} />

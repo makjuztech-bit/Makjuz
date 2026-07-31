@@ -1,0 +1,102 @@
+.clients-marquee {
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.clients-marquee-inner {
+  overflow: hidden;
+  padding: 0.25rem 0;
+}
+
+.clients-track {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+
+.clients-track.paused {
+  animation-play-state: paused;
+}
+
+.client-card {
+  flex: 0 0 auto;
+  min-width: 280px;
+  max-width: 280px;
+  height: 120px;
+  padding: 1.5rem 1.5rem;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 250ms ease, box-shadow 250ms ease;
+  cursor: pointer;
+}
+
+.client-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 28px 90px rgba(79, 70, 229, 0.2);
+}
+
+.client-logo {
+  max-height: 64px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+.marquee-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 96px;
+  pointer-events: none;
+}
+
+.marquee-fade.left {
+  left: 0;
+  background: linear-gradient(90deg, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0));
+}
+
+.marquee-fade.right {
+  right: 0;
+  background: linear-gradient(270deg, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0));
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .client-card {
+    min-width: 240px;
+    max-width: 240px;
+    height: 104px;
+  }
+}
+
+@media (max-width: 640px) {
+  .client-card {
+    min-width: 200px;
+    max-width: 200px;
+    height: 92px;
+    padding: 1.1rem 1.2rem;
+  }
+
+  .client-logo {
+    max-height: 52px;
+  }
+
+  .marquee-fade {
+    width: 68px;
+  }
+}
