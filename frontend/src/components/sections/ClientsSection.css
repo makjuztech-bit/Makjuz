@@ -1,10 +1,44 @@
+.clients-section {
+  width: 100%;
+  background: #ffffff;
+  padding: 4rem 0 4.5rem;
+}
+
+.clients-section__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.clients-section__header {
+  max-width: 44rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.clients-section__eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.clients-section__title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.2;
+  font-weight: 600;
+  color: #0f172a;
+}
+
 .clients-marquee {
   position: relative;
   overflow: hidden;
-  margin-top: 2rem;
 }
 
-.clients-marquee-inner {
+.clients-marquee__viewport {
   overflow: hidden;
   padding: 0.25rem 0;
 }
@@ -12,8 +46,9 @@
 .clients-track {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  animation: marquee 32s linear infinite;
+  width: max-content;
+  gap: clamp(5rem, 9vw, 7.5rem);
+  animation: marquee 30s linear infinite;
   will-change: transform;
 }
 
@@ -21,82 +56,70 @@
   animation-play-state: paused;
 }
 
-.client-card {
-  flex: 0 0 auto;
-  min-width: 280px;
-  max-width: 280px;
-  height: 120px;
-  padding: 1.5rem 1.5rem;
-  border-radius: 1rem;
-  background: #ffffff;
-  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
+.client-item {
   display: flex;
+  flex: 0 0 auto;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  transition: transform 250ms ease, box-shadow 250ms ease;
-  cursor: pointer;
-}
-
-.client-card:hover {
-  transform: scale(1.1);
-  box-shadow: 0 28px 90px rgba(79, 70, 229, 0.2);
+  min-width: 0;
 }
 
 .client-logo {
-  max-height: 64px;
-  max-width: 100%;
+  display: block;
+  height: clamp(3.75rem, 6vw, 5.75rem);
   width: auto;
+  max-width: none;
   object-fit: contain;
+  filter: grayscale(0.16);
+  opacity: 0.92;
+  transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+  cursor: pointer;
 }
 
-.marquee-fade {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 96px;
-  pointer-events: none;
-}
-
-.marquee-fade.left {
-  left: 0;
-  background: linear-gradient(90deg, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0));
-}
-
-.marquee-fade.right {
-  right: 0;
-  background: linear-gradient(270deg, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0));
+.client-item:hover .client-logo {
+  transform: scale(1.1);
+  filter: grayscale(0);
+  opacity: 1;
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  100% {
-    transform: translateX(-50%);
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 @media (max-width: 1024px) {
-  .client-card {
-    min-width: 240px;
-    max-width: 240px;
-    height: 104px;
+  .clients-section {
+    padding: 3.5rem 0 4rem;
+  }
+
+  .client-logo {
+    height: clamp(3.25rem, 5.25vw, 4.75rem);
   }
 }
 
 @media (max-width: 640px) {
-  .client-card {
-    min-width: 200px;
-    max-width: 200px;
-    height: 92px;
-    padding: 1.1rem 1.2rem;
+  .clients-section {
+    padding: 3rem 0 3.5rem;
+  }
+
+  .clients-section__inner {
+    padding: 0 1rem;
+  }
+
+  .clients-section__header {
+    margin-bottom: 1.5rem;
   }
 
   .client-logo {
-    max-height: 52px;
+    height: clamp(2.75rem, 8vw, 3.5rem);
   }
 
-  .marquee-fade {
-    width: 68px;
+  .clients-track {
+    gap: 3.25rem;
   }
 }

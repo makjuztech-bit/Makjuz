@@ -18,38 +18,32 @@ const clientLogos = [
 
 export default function ClientsSection() {
   const [isPaused, setIsPaused] = useState(false)
-
-  const renderCards = (logos, suffix) =>
-    logos.map((logo, index) => (
-      <div
-        key={`${logo.name}-${index}-${suffix}`}
-        className="client-card"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        <img className="client-logo" src={logo.src} alt={`${logo.name} logo`} />
-      </div>
-    ))
+  const loopedLogos = [...clientLogos, ...clientLogos]
 
   return (
-    <section className="clients-section px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl rounded-4xl border border-white/10 bg-slate-950/80 p-10 shadow-glow">
-        <div className="mb-10 max-w-3xl text-center mx-auto">
-          <p className="text-sm uppercase tracking-[0.28em] text-cyan-300">Our Trusted Clients</p>
-          <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">
+    <section className="clients-section">
+      <div className="clients-section__inner">
+        <div className="clients-section__header">
+          <p className="clients-section__eyebrow">Our Trusted Clients</p>
+          <h2 className="clients-section__title">
             Proud to work with leading companies across various industries.
           </h2>
         </div>
 
-        <div className="clients-marquee">
-          <div className="clients-marquee-inner">
+        <div
+          className="clients-marquee"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="clients-marquee__viewport">
             <div className={`clients-track ${isPaused ? 'paused' : ''}`}>
-              {renderCards(clientLogos, 'first')}
-              {renderCards(clientLogos, 'second')}
+              {loopedLogos.map((logo, index) => (
+                <div key={`${logo.name}-${index}`} className="client-item">
+                  <img className="client-logo" src={logo.src} alt={`${logo.name} logo`} />
+                </div>
+              ))}
             </div>
           </div>
-          <div className="marquee-fade left" aria-hidden="true" />
-          <div className="marquee-fade right" aria-hidden="true" />
         </div>
       </div>
     </section>
