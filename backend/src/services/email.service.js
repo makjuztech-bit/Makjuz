@@ -22,27 +22,41 @@ function createTransporter() {
 }
 
 async function sendContactNotification(submission) {
-  const transporter = createTransporter()
-  const toAddress =
-    process.env.CONTACT_NOTIFICATION_TO || process.env.SMTP_USER
+  try {
+    const transporter = createTransporter()
+    const toAddress =
+      process.env.CONTACT_NOTIFICATION_TO || process.env.SMTP_USER
 
-  if (!toAddress) {
-    return { skipped: true }
-  }
+    if (!toAddress) {
+      console.log('No email address configured for notifications')
+      return { skipped: true }
+    }
 
-  return transporter.sendMail({
-    from: process.env.CONTACT_NOTIFICATION_FROM,
-    to: toAddress,
-    replyTo: submission.email,
-    subject: `Makjuz contact enquiry: ${submission.service}`,
-    text: `Name: ${submission.name}
+    console.log('Attempting to send email to:', toAddress)
+    console.log('SMTP Host:', process.env.SMTP_HOST)
+    console.log('SMTP Port:', process.env.SMTP_PORT)
+    console.log('SMTP User:', process.env.SMTP_USER)
+
+    const result = await transporter.sendMail({
+      from: process.env.CONTACT_NOTIFICATION_FROM,
+      to: toAddress,
+      replyTo: submission.email,
+      subject: `Makjuz contact enquiry: ${submission.service}`,
+      text: `Name: ${submission.name}
 Email: ${submission.email}
 Company: ${submission.company}
 Service: ${submission.service}
 
 Project Details:
 ${submission.details}`,
-  })
+    })
+
+    console.log('Email sent successfully:', result)
+    return result
+  } catch (error) {
+    console.error('Error sending email:', error)
+    throw error
+  }
 }
 
 module.exports = { sendContactNotification }
