@@ -2,12 +2,16 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { LoaderCircle, Send } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { submitContactForm } from '../../lib/api.js'
 
 const inputBase =
   'peer w-full rounded-3xl border border-slate-300/80 bg-white px-4 pt-4 pb-3 text-sm text-slate-950 outline-none transition duration-300 placeholder-transparent focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20'
 
 const textareaBase = `${inputBase} min-h-[160px] resize-none leading-6`
+
+// Web3Forms API endpoint
+const WEB3FORMS_API = 'https://api.web3forms.com/submit'
+// Replace with your Web3Forms Access Key from https://app.web3forms.com
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
 
 function ContactForm() {
   const reduceMotion = useReducedMotion()
@@ -29,17 +33,52 @@ function ContactForm() {
 
   const onSubmit = async (values) => {
     try {
-      const response = await submitContactForm(values)
-      setStatus({
-        type: 'success',
-        message: response.message || 'Thanks for reaching out. We will get back to you soon.',
+      // Check if access key is configured
+      if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === 'your_access_key_here') {
+        console.error('Web3Forms access key not configured. Please add VITE_WEB3FORMS_ACCESS_KEY to your .env file')
+        setStatus({
+          type: 'error',
+          message: 'Form configuration error. Please contact support.',
+        })
+        return
+      }
+
+      // Prepare form data for Web3Forms
+      const formData = new FormData()
+      formData.append('access_key', WEB3FORMS_ACCESS_KEY)
+      formData.append('name', values.name)
+      formData.append('email', values.email)
+      formData.append('company', values.company)
+      formData.append('service', values.service)
+      formData.append('message', values.details)
+      // Add a success redirect URL (optional)
+      // formData.append('redirect', 'https://yoursite.com/thank-you')
+
+      // Submit to Web3Forms
+      const response = await fetch(WEB3FORMS_API, {
+        method: 'POST',
+        body: formData,
       })
-      reset()
+
+      const responseData = await response.json()
+      console.log('Web3Forms response:', responseData)
+
+      if (response.ok) {
+        setStatus({
+          type: 'success',
+          message: 'Thanks for reaching out! We will get back to you soon.',
+        })
+        reset()
+      } else {
+        throw new Error(responseData?.message || 'Failed to submit form')
+      }
     } catch (error) {
+      console.error('Form submission error:', error)
       setStatus({
         type: 'error',
-        message:
-          error.response?.data?.message || 'Unable to submit your request right now. Please try again.',
+        message: error.message === 'Failed to submit form' 
+          ? 'Unable to submit your request right now. Please try again.'
+          : error.message || 'Something went wrong. Please try again.',
       })
     }
   }
