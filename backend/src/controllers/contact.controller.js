@@ -3,17 +3,17 @@ const { sendContactNotification } = require('../services/email.service')
 
 async function submitContact(req, res, next) {
   try {
-    const { name, email, subject, message } = req.body
+    const { name, email, company, service, details } = req.body
 
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !company || !service || !details) {
       res.status(400).json({
         success: false,
-        message: 'Name, email, subject, and message are required.',
+        message: 'Name, email, company, service, and details are required.',
       })
       return
     }
 
-    const payload = { name, email, subject, message }
+    const payload = { name, email, company, service, details }
     const prisma = getPrisma()
 
     if (prisma) {

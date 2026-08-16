@@ -150,8 +150,9 @@ model ContactSubmission {
   id        Int      @id @default(autoincrement())
   name      String
   email     String
-  subject   String
-  message   String
+  company   String
+  service   String
+  details   String
   createdAt DateTime @default(now())
 }
 

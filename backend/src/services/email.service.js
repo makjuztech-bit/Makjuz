@@ -23,17 +23,25 @@ function createTransporter() {
 
 async function sendContactNotification(submission) {
   const transporter = createTransporter()
-  const toAddress = process.env.CONTACT_NOTIFICATION_TO || process.env.SMTP_USER
+  const toAddress =
+    process.env.CONTACT_NOTIFICATION_TO || process.env.SMTP_USER
 
   if (!toAddress) {
     return { skipped: true }
   }
 
   return transporter.sendMail({
-    from: process.env.CONTACT_NOTIFICATION_FROM || 'makjuz@example.com',
+    from: process.env.CONTACT_NOTIFICATION_FROM,
     to: toAddress,
-    subject: `Makjuz contact enquiry: ${submission.subject}`,
-    text: `Name: ${submission.name}\nEmail: ${submission.email}\n\n${submission.message}`,
+    replyTo: submission.email,
+    subject: `Makjuz contact enquiry: ${submission.service}`,
+    text: `Name: ${submission.name}
+Email: ${submission.email}
+Company: ${submission.company}
+Service: ${submission.service}
+
+Project Details:
+${submission.details}`,
   })
 }
 
